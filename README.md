@@ -69,7 +69,7 @@ python -m cgfuse task=cgfuse \
     task/trainer/optimizer@trainer.optimizer=PLBART \
     task/trainer/scheduler@trainer.scheduler=PLBART \
     trainer.fusion.expert=.logs/bootstrap/gnn_java/ckpt/<run hash>/last.ckpt \
-    trainer.fusion.target_layers=[11] \
+    "trainer.fusion.target_layers=[11]" \
     trainer.fusion.scale=1.0
 ```
 
@@ -77,29 +77,36 @@ Training first adapts only the attached GNN (`trainer.fusion.adapting_epoch`), t
 the PLM and GNN jointly (`trainer.fusion.epoch`), with early stopping on validation CodeBLEU.
 The best checkpoint is evaluated on the CONCODE test set (EM, BLEU, CodeBLEU).
 
-`trainer.fusion.scale` is $\lambda$. `trainer.fusion.target_layers` indexes the decoder's layers
-for the encoder models (which are turned into encoder-decoder models), and the
-encoder+decoder layer stack for the BART and T5 families. Settings of the main experiments:
+`trainer.fusion.scale` is $\lambda$. `trainer.fusion.target_layers` lists the layers the GNN is
+attached to. The paper attaches a single-layer GNN to the **last layer** only: `[11]` for the
+encoder models (indexing the decoder they are turned into) and for BART/PLBART (encoder+decoder
+stack of 12), `[23]` for T5/CodeT5 (stack of 24).
 
-| PLM | `task/model@model` | optimizer / scheduler | GNN (Table 2) | λ | `target_layers` |
+`scripts/main_results.sh` runs stages 2 and 3 for every PLM with the settings of Table 2:
+
+| PLM | `task/model@model` | optimizer / scheduler | GNN | λ | `target_layers` |
 |---|---|---|---|---|---|
-| BERT | `bert` | `bert` | R-GCN | 1 | `[0,1,2]` |
+| BERT | `bert` | `bert` | R-GCN | 1 | `[11]` |
 | RoBERTa | `roberta` | `roberta` | GIN | 0.5 | `[11]` |
-| BART | `bart` | `bart` | GIN | 0.5 | `[6,7]` |
+| BART | `bart` | `bart` | GIN | 0.5 | `[11]` |
 | T5 | `t5` | `t5` | GIN | 0.5 | `[23]` |
-| CodeBERT | `CodeBERT` | `CodeBERT` | GIN | 1 | `[0,1,2,3]` |
-| GraphCodeBERT | `GraphCodeBERT` | `GraphCodeBERT` | GraphSAGE | 1 | `[0,11]` |
-| UniXcoder | `unixcoder` | `unixcoder` | GIN | 1 | `[0,11]` |
+| CodeBERT | `CodeBERT` | `CodeBERT` | GIN | 1 | `[11]` |
+| GraphCodeBERT | `GraphCodeBERT` | `GraphCodeBERT` | GraphSAGE | 1 | `[11]` |
+| UniXcoder | `unixcoder` | `unixcoder` | GIN | 1 | `[11]` |
 | PLBART | `PLBART` | `PLBART` | R-GCN | 1 | `[11]` |
-| CodeT5 | `codeT5_M220` | `codeT5` | GIN | 1 | `[12,13,22,23]` |
+| CodeT5 | `codeT5_M220` | `codeT5` | GIN | 1 | `[23]` |
+
+```bash
+bash scripts/main_results.sh             # all nine PLMs
+bash scripts/main_results.sh PLBART      # one PLM (DEVICE=1 to pick another GPU)
+```
 
 ### Baselines
 
 The same PLMs fine-tuned without a GNN:
 
 ```bash
-python -m cgfuse task=baseline task/model@model=PLBART \
-    task/trainer/optimizer@trainer.optimizer=PLBART task/trainer/scheduler@trainer.scheduler=PLBART
+bash scripts/baselines.sh                # all nine PLMs, or e.g. `bash scripts/baselines.sh PLBART`
 ```
 
 ## Layout
@@ -115,6 +122,7 @@ cgfuse/
   utils/preprocessors/ tree-sitter AST + data-flow graph extraction per language
   utils/datasets/      CONCODE and CodeSearchNet loaders
   utils/metrics/       EM, BLEU, CodeBLEU
+scripts/               main_results.sh (Table 2, CGFuse rows), baselines.sh (Table 2, baseline rows)
 ```
 
 ## Notes
@@ -126,6 +134,10 @@ cgfuse/
 - `cgfuse/utils/metrics/` vendors third-party evaluation code under its original licenses:
   CodeBLEU (Microsoft / [k4black/codebleu](https://github.com/k4black/codebleu), MIT), NLTK's BLEU
   (Apache 2.0), Google's BLEU (Apache 2.0) and the smoothed BLEU of CodeXGLUE.
+
+## License
+
+MIT, see [LICENSE](LICENSE). Vendored third-party code keeps its own license (see Notes).
 
 ## Citation
 

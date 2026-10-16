@@ -25,7 +25,8 @@ fusion:
   # Higher values had lower effect. Testing with learned!
   scale: 1.0
   # Which layers should teacher be added
-  target_layers: [21,22,23]  # adding whole model vs only decoder...
+  # Which layers the GNN is attached to; the paper attaches it to the last layer only
+  target_layers: [23]
   # Which embeddings should teacher be using, could be: ["self", "model", "layer"]
   # "self": Uses its own embedding space
   # "model": Uses attached models embedding space
