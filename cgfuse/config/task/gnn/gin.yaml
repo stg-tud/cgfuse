@@ -1,0 +1,7 @@
+defaults:
+  - base
+  - _self_
+
+type:
+  _target_: cgfuse.models.GIN
+root_weight: False

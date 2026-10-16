@@ -1,0 +1,26 @@
+# @package _global_
+task_name: bootstrap
+action_name: gnn_java
+debug: False
+is_test: True
+
+# Target high-level task, should be among: ["seq2seq", "classification"] and other for bootstrap
+language_task: "graph"
+# seed for torch, numpy and python.random
+seed: 42
+
+# path of the directory to output training logs
+workdir: ".logs/${task_name}/${action_name}"
+
+# name of the current experiment to log it in Aim.Run
+experiment_name: "bs_gnn_jv"
+
+# dir to create .aim repo in
+aim_repo: ".aim"
+
+
+defaults:
+  - trainer: bootstrap_con
+  - dataset: concode
+  - model: codeT5_M220
+  - gnn: gin

@@ -1,0 +1,8 @@
+defaults:
+  - base
+  - _self_
+
+type:
+  _target_: transformers.T5ForConditionalGeneration.from_pretrained
+hf_handle: "Salesforce/codet5-base"
+name: "codet5"

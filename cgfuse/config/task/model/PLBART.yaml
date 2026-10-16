@@ -1,0 +1,9 @@
+defaults:
+  - base
+  - _self_
+
+type:
+  _target_: transformers.PLBartForConditionalGeneration.from_pretrained
+hf_handle: "uclanlp/plbart-base"
+name: "plbart"
+# large also exits, 1024

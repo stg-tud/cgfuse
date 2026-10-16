@@ -1,0 +1,10 @@
+num_relations: 3
+root_weight: True
+dropout: 0.1
+layer_norm_eps: 1e-5
+activation: "gelu" # GELU, RELU, PRELU, SWISH
+aggregation: "mean" # MEAN, MAX, SUM
+# hidden sizes of extra GNN layers: [] = single layer (paper default), [512] = 2 layers, [512, 512] = 3 layers
+intermediate: []
+embeddings:
+  model_name: "microsoft/unixcoder-base" # place holder

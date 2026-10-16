@@ -1,0 +1,10 @@
+type:
+  _target_:  torch.optim.AdamW
+# parameters of dedicated optimizer
+# Weight decay, LayerNorm and Bias are not subjected to this
+weight_decay: 0
+hyperparams:
+  # Learning rate for the optimizer
+  lr: 5e-5
+  # Epsilon value for the optimizer
+  eps: 1e-8

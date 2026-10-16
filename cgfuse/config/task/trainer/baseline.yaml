@@ -1,0 +1,12 @@
+defaults:
+  - base
+  - _self_
+  - optimizer: PLBART
+  - scheduler: PLBART
+
+epoch: 30
+es_patience: 5
+
+generation:
+  # Beam size in generation
+  beam_size: 10

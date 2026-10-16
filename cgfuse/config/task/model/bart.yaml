@@ -1,0 +1,9 @@
+defaults:
+  - base
+  - _self_
+
+type:
+  _target_: transformers.BartForConditionalGeneration.from_pretrained
+
+hf_handle: "facebook/bart-base"
+name: "bart"

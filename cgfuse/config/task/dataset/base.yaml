@@ -1,0 +1,22 @@
+num_workers: 16
+
+batch_size: 64
+# Dynamically updated ["NodeClassification", "LinkClassification"]
+task: "NodeClassification"
+# Node classification related parameters, default
+split_val: 0.15
+split_test: 0.15
+add_graphs: True
+
+max_source_length: 256
+max_target_length: 128
+
+# ["input", "output", "inout"]
+pl_feed: "output"
+pl_language: "python"
+
+# Metrics to be applied to generated text
+# ["em", "bleu", "codebleu", "mrr", "acc", "pass@1", "pass@10", "pass@100", "rogue-1", "rogue-2", "rogue-l"]
+metric: ["em", "bleu", "codebleu"]
+
+cache_enforce: False

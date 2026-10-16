@@ -1,0 +1,15 @@
+# @package _global_
+
+# name of the python file withing the tasks folder to run
+task_name: bootstrap
+
+action_name: gnn_python
+
+defaults:
+  - _self_
+  # you must specify the base config you want to run
+  - task: baseline
+
+generate_html_reports: False
+logger: aim
+# debug_logger: null

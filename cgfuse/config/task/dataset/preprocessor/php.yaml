@@ -1,0 +1,7 @@
+defaults:
+  - base
+  - _self_
+
+# path to class
+type:
+  _target_: cgfuse.utils.preprocessors.PreprocessorPhp

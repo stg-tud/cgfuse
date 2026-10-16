@@ -1,0 +1,9 @@
+defaults:
+  - base
+  - _self_
+
+# Weight decay set to 0 in the CodeT5 repo not 0.01
+
+hyperparams:
+  # concode: 10
+  lr: 5e-5

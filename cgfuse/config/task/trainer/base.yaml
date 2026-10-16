@@ -1,0 +1,23 @@
+automatic_optimization: True
+# Epoch count
+epoch: 30
+# Amount of gradient batches to be accumulated before applied, 1 means no accumulation
+accumulate_grad_batches: 1
+# Hardware
+accelerator: "gpu"
+# Which gpu
+device: [0]
+# Callbacks
+# checkpointing
+save_top_k: 1
+cp_metric: "codebleu"
+cp_mode: "max"
+# earlystopping
+es_patience: 5
+es_metric: "codebleu"
+es_mode: "max"
+# gradient clipping
+gradient_clip_val: 1
+# precision
+# [Bug] 16: https://github.com/Lightning-AI/pytorch-lightning/discussions/13300
+precision: "32-true" # 16-mixed

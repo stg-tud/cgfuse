@@ -1,0 +1,11 @@
+defaults:
+  - base
+  - _self_
+  - optimizer: gnn
+  - scheduler: gnn
+
+automatic_optimization: False
+epoch: 5
+cp_metric: "acc"
+es_patience: 2
+es_metric: "acc"

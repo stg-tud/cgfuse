@@ -1,0 +1,3 @@
+hf_handle: "microsoft/codebert-base"
+name: "codebert"
+hidden_size: 768

@@ -1,0 +1,9 @@
+defaults:
+  - base
+  - _self_
+
+type:
+  _target_: cgfuse.models.modules.ED_from_encoder_model
+
+hf_handle: "FacebookAI/roberta-base"
+name: "roberta"

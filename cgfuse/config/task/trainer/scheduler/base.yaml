@@ -1,0 +1,5 @@
+type:
+  _target_: transformers.optimization.get_linear_schedule_with_warmup
+num_warmup_steps: 500 # batch_size 64 -> 32
+# num_warmup_steps: 1000
+# num_training_steps: 200

@@ -1,0 +1,6 @@
+supported_langs: ["java", "python", "javascript", "c-sharp", "ruby", "go", "cpp", "rust", "php", "c"]
+
+centroid: null
+add_types: False
+add_code_mask: True
+add_edge_mask: True

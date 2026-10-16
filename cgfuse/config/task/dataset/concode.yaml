@@ -1,0 +1,14 @@
+defaults:
+  - base
+  - preprocessor: java
+  - _self_
+
+# path to class
+type:
+  _target_: cgfuse.utils.datasets.ConcodeDataset
+source: "AhmedSSoliman/CodeXGLUE-CONCODE"  # "google/code_x_glue_tc_text_to_code"
+pl_language: "java"
+
+cache_enforce: True
+
+name: "concode"
